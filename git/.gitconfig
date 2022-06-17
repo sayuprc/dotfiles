@@ -1,55 +1,55 @@
 [core]
-	quotepath = false
-	preloadindex = true
-	fscache = true
-	autocrlf = false
+  quotepath = false
+  preloadindex = true
+  fscache = true
+  autocrlf = false
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [alias]
-	i = init
+  i = init
 
-	st = status
+  st = status
 
-	a = add
-	aa = add .
+  a = add
+  aa = add .
 
-	c = commit
-	cm = commit -m
+  c = commit
+  cm = commit -m
 
-	pu = push
+  pu = push
 
-	pl = pull
+  pl = pull
 
-	b = branch
+  b = branch
 
-	co = checkout
-	cob = checkout -b
+  co = checkout
+  cob = checkout -b
 
-	m = merge
+  m = merge
 
-	f = fetch
+  f = fetch
 
-	d = difftool
+  d = difftool
 
   l = log
   la = log --name-status 
   ls = log --oneline
   lg = log --graph
 [gc]
-	auto = 256
+  auto = 256
 [pull]
-	rebase = false
+  rebase = false
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [credential]
-	helper = manager-core
+  helper = manager-core
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 [mergetool]
-	prompt = false
+  prompt = false
