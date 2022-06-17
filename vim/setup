@@ -1,0 +1,57 @@
+#!/bin/bash
+
+function createDirectory() {
+  if [ ! -d $1 ];
+  then
+    mkdir -p $1
+  fi
+}
+
+dirctries=("$HOME/.vim" "$HOME/.vim/bundles" "$HOME/.vim/colors" "$HOME/.vim/autoload" "$HOME/.vim/src" "$HOME/.vim/colorschemes")
+
+# Create Directories
+for dir in ${dirctries[@]};
+do
+  createDirectory $dir
+done
+
+cd $HOME
+
+curl -s https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/installer.sh
+
+sh "$HOME/installer.sh" "$HOME/.vim/bundles"
+
+# Install colorscheme
+[ ! -d "$HOME/.vim/colorschemes/iceberg.vim" ] && git clone https://github.com/cocopon/iceberg.vim.git "$HOME/.vim/colorschemes/iceberg.vim"
+
+[ ! -d "$HOME/.vim/colorschemes/vim-wombat-schme" ] && git clone https://github.com/sheerun/vim-wombat-scheme.git "$HOME/.vim/colorschemes/vim-wombat-schme"
+
+for item in `ls ~/.vim/colorschemes | awk '{print $1}'`;
+do
+	if [ -d "$HOME/.vim/colorschemes/$item/colors" ];
+  then
+		cp -a "$HOME/.vim/colorschemes/$item/colors/*" "$HOME/.vim/colors/"
+	fi
+
+	if [ -d "$HOME/.vim/colorschemes/$item/src" ];
+  then
+		cp -a "$HOME/.vim/colorschemes/$item/src/*" "$HOME/.vim/src/"
+	fi
+
+	if [ -d "$HOME/.vim/colorschemes/$item/autoload" ];
+  then
+		cp -a "$HOME/.vim/colorschemes/$item/autoload/*" "$HOME/.vim/autoload/"
+	fi
+done
+
+cp .vimrc "$HOME/.vimrc"
+
+# Coc setup
+vim +CocConfig +:q
+vim +CocInstall coc-phpls +:q
+
+target="$HOME/.vim/bundles/repos/github.com/neoclide/coc.nvim_release/autoload/coc/util.vim"
+
+line=`grep -n "extension_root() abort" ${target} | sed -e 's/:.*//g'`
+
+sed -i "${line}a  return \"C:\\\\\\\\Users\\\\\\\\$USER\\\\\\\\.config\\\\\\\\coc\\\\\\\\extensions\"" ${target}
