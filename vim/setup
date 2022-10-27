@@ -7,7 +7,18 @@ function createDirectory() {
   fi
 }
 
-dirctries=("$HOME/.vim" "$HOME/.vim/bundles" "$HOME/.vim/colors" "$HOME/.vim/autoload" "$HOME/.vim/src" "$HOME/.vim/colorschemes")
+function findAndCp() {
+    find "$1" -maxdepth 1 | awk 'NR!=1' | xargs -i cp -r {} "$2"
+}
+
+VIM_HOME="${HOME}/.vim"
+BUNDLES_DIR="${VIM_HOME}/bundles"
+COLORS_DIR="${VIM_HOME}/colors"
+AUTOLOAD_DIR="${VIM_HOME}/autoload"
+SRC_DIR="${VIM_HOME}/src"
+THEME_DIR="${VIM_HOME}/themes"
+
+dirctries=("${VIM_HOME}" "${BUNDLES_DIR}" "${COLORS_DIR}" "${AUTOLOAD_DIR}" "${SRC_DIR}" "${THEME_DIR}")
 
 # Create Directories
 for dir in ${dirctries[@]};
@@ -15,43 +26,44 @@ do
   createDirectory $dir
 done
 
-cd $HOME
+cd "${HOME}"
 
-curl -s https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/installer.sh
+curl -s https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > "${HOME}/installer.sh"
 
-sh "$HOME/installer.sh" "$HOME/.vim/bundles"
+sh "${HOME}/installer.sh" "${BUNDLES_DIR}"
+
+rm -rf "${HOME}/installer.sh"
 
 # Install colorscheme
-[ ! -d "$HOME/.vim/colorschemes/iceberg.vim" ] && git clone https://github.com/cocopon/iceberg.vim.git "$HOME/.vim/colorschemes/iceberg.vim"
+COLOR_REPOS=("https://github.com/cocopon/iceberg.vim.git" "https://github.com/sheerun/vim-wombat-scheme.git")
 
-[ ! -d "$HOME/.vim/colorschemes/vim-wombat-schme" ] && git clone https://github.com/sheerun/vim-wombat-scheme.git "$HOME/.vim/colorschemes/vim-wombat-schme"
+cd "${THEME_DIR}"
 
-for item in `ls ~/.vim/colorschemes | awk '{print $1}'`;
+for repo in ${COLOR_REPOS[@]};
 do
-	if [ -d "$HOME/.vim/colorschemes/$item/colors" ];
-  then
-		cp -a "$HOME/.vim/colorschemes/$item/colors/*" "$HOME/.vim/colors/"
-	fi
-
-	if [ -d "$HOME/.vim/colorschemes/$item/src" ];
-  then
-		cp -a "$HOME/.vim/colorschemes/$item/src/*" "$HOME/.vim/src/"
-	fi
-
-	if [ -d "$HOME/.vim/colorschemes/$item/autoload" ];
-  then
-		cp -a "$HOME/.vim/colorschemes/$item/autoload/*" "$HOME/.vim/autoload/"
-	fi
+  git clone $repo >/dev/null 2>&1
 done
 
-cp .vimrc "$HOME/.vimrc"
+for item in `ls ${THEME_DIR} | awk '{print $1}'`;
+do
+  THEME_COLOR_DIR="${THEME_DIR}/${item}/colors"
+  THEME_SRC_DIR="${THEME_DIR}/${item}/src"
+  THEME_AUTOLOAD_DIR="${THEME_DIR}/${item}/autoload"
 
-# Coc setup
-vim +CocConfig +:q
-vim +CocInstall coc-phpls +:q
+  if [ -d "${THEME_COLOR_DIR}" ];
+  then
+    findAndCp "${THEME_COLOR_DIR}" "${COLORS_DIR}"
+  fi
 
-target="$HOME/.vim/bundles/repos/github.com/neoclide/coc.nvim_release/autoload/coc/util.vim"
+  if [ -d "${THEME_SRC_DIR}" ];
+  then
+    findAndCp "${THEME_SRC_DIR}" "${SRC_DIR}"
+  fi
 
-line=`grep -n "extension_root() abort" ${target} | sed -e 's/:.*//g'`
+  if [ -d "${THEME_AUTOLOAD_DIR}" ];
+  then
+    findAndCp "${THEME_AUTOLOAD_DIR}" "${AUTOLOAD_DIR}"
+  fi
+done
 
-sed -i "${line}a  return \"C:\\\\\\\\Users\\\\\\\\$USER\\\\\\\\.config\\\\\\\\coc\\\\\\\\extensions\"" ${target}
+cp .vimrc "${HOME}/.vimrc"

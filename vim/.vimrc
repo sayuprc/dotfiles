@@ -23,7 +23,7 @@ if dein#load_state('~/.vim/bundles')
 	call dein#add('itchyny/lightline.vim')
 
   " 補完系
-  call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+  " call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
 	
   " インデントガイド
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -114,13 +114,13 @@ let g:lightline = {
 \	},
 \}
 
-"--------------------------------------
-" coc nvim
-"--------------------------------------
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gf <Plug>(coc-format)
-nmap <silent> gh :<C-u>call CocAction('doHover')<cr>
+" "--------------------------------------
+" " coc nvim
+" "--------------------------------------
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gf <Plug>(coc-format)
+" nmap <silent> gh :<C-u>call CocAction('doHover')<cr>
 
 "--------------------------------------
 " Emmet
