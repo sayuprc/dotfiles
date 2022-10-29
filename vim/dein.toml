@@ -1,0 +1,24 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+# nerdtree
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+# Ememt
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+# ステータスバー
+repo = 'itchyny/lightline.vim'
+
+# [[plugins]]
+# 補完
+# repo = 'neoclide/coc.nvim'
+# merged = 0
+# rev = 'release'
+
+[[plugins]]
+# インデントガイド
+repo = 'nathanaelkane/vim-indent-guides'

@@ -7,26 +7,20 @@ if &compatible
   set nocompatible
 endif
 
-set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+let s:dein_dir = expand('~/.config/vim/bundles')
 
-if dein#load_state('~/.vim/bundles')
-	call dein#begin('~/.vim/bundles')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-	call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
+execute 'set runtimepath+=' . fnamemodify(s:dein_repo_dir, ':p')
 
-	call dein#add('scrooloose/nerdtree')
+if dein#load_state(s:dein_dir)
+	call dein#begin(s:dein_dir)
 
-	" Ememt
-	call dein#add('mattn/emmet-vim')
+  let s:toml_dir = expand('~/.config/vim')
 
-	" ステータスバー
-	call dein#add('itchyny/lightline.vim')
+  call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
 
-  " 補完系
-  " call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
-	
-  " インデントガイド
-  call dein#add('nathanaelkane/vim-indent-guides')
+  call dein#load_toml(s:toml_dir . '/dein_lazy.toml', {'lazy': 1})
 
 	call dein#end()
 	call dein#save_state()
