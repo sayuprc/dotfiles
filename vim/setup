@@ -11,59 +11,87 @@ function findAndCp() {
     find "$1" -maxdepth 1 | awk 'NR!=1' | xargs -i cp -r {} "$2"
 }
 
+ROOT_DIR=$(cd $(dirname $0); pwd)
+
 VIM_HOME="${HOME}/.vim"
-BUNDLES_DIR="${VIM_HOME}/bundles"
-COLORS_DIR="${VIM_HOME}/colors"
-AUTOLOAD_DIR="${VIM_HOME}/autoload"
-SRC_DIR="${VIM_HOME}/src"
-THEME_DIR="${VIM_HOME}/themes"
+CONFIG_HOME="${HOME}/.config/vim"
+BUNDLES_DIR="${CONFIG_HOME}/bundles"
+COLORS_DIR="${CONFIG_HOME}/colors"
+AUTOLOAD_DIR="${CONFIG_HOME}/autoload"
+SRC_DIR="${CONFIG_HOME}/src"
+THEME_DIR="${CONFIG_HOME}/themes"
 
-dirctries=("${VIM_HOME}" "${BUNDLES_DIR}" "${COLORS_DIR}" "${AUTOLOAD_DIR}" "${SRC_DIR}" "${THEME_DIR}")
+: "Create directories" && {
+  dirctries=("${CONFIG_HOME}" "${BUNDLES_DIR}" "${COLORS_DIR}" "${AUTOLOAD_DIR}" "${SRC_DIR}" "${THEME_DIR}" "${VIM_HOME}")
 
-# Create Directories
-for dir in ${dirctries[@]};
-do
-  createDirectory $dir
-done
+  for dir in ${dirctries[@]};
+  do
+    createDirectory $dir
+  done
+}
 
 cd "${HOME}"
 
-curl -s https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > "${HOME}/installer.sh"
+: "Setup Dein vim" && {
+  curl -s https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > "${HOME}/installer.sh"
 
-sh "${HOME}/installer.sh" "${BUNDLES_DIR}"
+  sh "${HOME}/installer.sh" "${BUNDLES_DIR}" > /dev/null
 
-rm -rf "${HOME}/installer.sh"
+  rm -rf "${HOME}/installer.sh"
+}
 
-# Install colorscheme
-COLOR_REPOS=("https://github.com/cocopon/iceberg.vim.git" "https://github.com/sheerun/vim-wombat-scheme.git")
+: "Clone and setup color themes" && {
+  COLOR_REPOS=("https://github.com/cocopon/iceberg.vim.git" "https://github.com/sheerun/vim-wombat-scheme.git")
 
-cd "${THEME_DIR}"
+  cd "${THEME_DIR}"
 
-for repo in ${COLOR_REPOS[@]};
-do
-  git clone $repo >/dev/null 2>&1
-done
+  for repo in ${COLOR_REPOS[@]};
+  do
+    git clone $repo >/dev/null
+  done
 
-for item in `ls ${THEME_DIR} | awk '{print $1}'`;
-do
-  THEME_COLOR_DIR="${THEME_DIR}/${item}/colors"
-  THEME_SRC_DIR="${THEME_DIR}/${item}/src"
-  THEME_AUTOLOAD_DIR="${THEME_DIR}/${item}/autoload"
+  for item in `ls ${THEME_DIR} | awk '{print $1}'`;
+  do
+    THEME_COLOR_DIR="${THEME_DIR}/${item}/colors"
+    THEME_SRC_DIR="${THEME_DIR}/${item}/src"
+    THEME_AUTOLOAD_DIR="${THEME_DIR}/${item}/autoload"
 
-  if [ -d "${THEME_COLOR_DIR}" ];
+    if [ -d "${THEME_COLOR_DIR}" ];
+    then
+      findAndCp "${THEME_COLOR_DIR}" "${COLORS_DIR}"
+    fi
+
+    if [ -d "${THEME_SRC_DIR}" ];
+    then
+      findAndCp "${THEME_SRC_DIR}" "${SRC_DIR}"
+    fi
+
+    if [ -d "${THEME_AUTOLOAD_DIR}" ];
+    then
+      findAndCp "${THEME_AUTOLOAD_DIR}" "${AUTOLOAD_DIR}"
+    fi
+  done
+
+  ln -s "${COLORS_DIR}" "${VIM_HOME}/"
+}
+
+: "Copy setting files" && {
+  cd "${ROOT_DIR}"
+
+  cp "${ROOT_DIR}/.vimrc" "${CONFIG_HOME}/.vimrc"
+  cp dein.toml "${CONFIG_HOME}/dein.toml"
+  cp dein_lazy.toml "${CONFIG_HOME}/dein_lazy.toml"
+
+  ln -s "${CONFIG_HOME}/.vimrc" "${HOME}/.vimrc"
+}
+
+: "Initialization" && {
+  if type expect > /dev/null 2>&1;
   then
-    findAndCp "${THEME_COLOR_DIR}" "${COLORS_DIR}"
+    expect -c "
+    spawn vim +:q
+    expect \"Press ENTER or type command to continue\"
+    send \"\n\"
+    "
   fi
-
-  if [ -d "${THEME_SRC_DIR}" ];
-  then
-    findAndCp "${THEME_SRC_DIR}" "${SRC_DIR}"
-  fi
-
-  if [ -d "${THEME_AUTOLOAD_DIR}" ];
-  then
-    findAndCp "${THEME_AUTOLOAD_DIR}" "${AUTOLOAD_DIR}"
-  fi
-done
-
-cp .vimrc "${HOME}/.vimrc"
+}
