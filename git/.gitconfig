@@ -4,7 +4,7 @@
   fscache = true
   autocrlf = false
   pager = delta --keep-plus-minus-markers
-	editor = vim
+  editor = vim
 
 [color]
   diff = auto
@@ -12,7 +12,7 @@
   branch = auto
 
 [commit]
-	template = ~/.config/git/.gitmessage
+  template = ~/.config/git/.gitmessage
 
 [gc]
   auto = 256
