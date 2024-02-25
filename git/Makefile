@@ -12,8 +12,8 @@ dir: ## Creates a directory related to the Fish shell
 	[ ! -d $(GIT_CONFIG_ROOT) ] && mkdir -p $(GIT_CONFIG_ROOT) || true
 	[ ! -d $(CONF_DIR) ] && mkdir -p $(CONF_DIR) || true
 
-.PHONY: init
-init:
+.PHONY: user-conf
+user-conf: ## Create a user.conf
 	[ ! -f $(ROOT)/user.conf ] && cp $(ROOT)/user.conf.example $(ROOT)/user.conf || true
 	sed -i -e 's/##NAME##/$(USER_NAME)/' $(ROOT)/user.conf
 	sed -i -e 's/##EMAIL##/$(EMAIL)/' $(ROOT)/user.conf
