@@ -1,0 +1,6 @@
+# vim
+
+## Required
+
+- vim
+- git
