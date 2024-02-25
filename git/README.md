@@ -1,0 +1,6 @@
+# git
+
+## required
+
+- git
+- delta

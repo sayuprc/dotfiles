@@ -42,38 +42,6 @@
   diffFilter = delta --color-only
 
 [include]
-  path = ~/.config/git/themes.gitconfig
-
-[delta]
-  line-numbers = true
-  side-by-side = true
-  syntax-theme = Monokai Extended
-  navigate = true
-
-[alias]
-  i = init
-
-  st = status
-
-  a = add
-
-  c = commit
-  cm = commit -m
-
-  b = branch
-
-  co = checkout
-  cob = checkout -b
-
-  m = merge
-
-  f = fetch
-
-  d = difftool
-
-  l = log
-  la = log --name-status
-  ls = log --oneline
-  lg = log --graph
-
-  sw = switch
+  path = ~/.config/git/conf.d/user.conf
+  path = ~/.config/git/conf.d/alias.conf
+  path = ~/.config/git/conf.d/delta.conf
