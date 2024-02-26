@@ -25,6 +25,7 @@ link: ## Creates a symbolic link for configuration files
 	[ ! -f $(CONF_DIR)/user.conf ] && ln -s $(ROOT)/conf.d/user.conf $(CONF_DIR)/user.conf || true
 	[ ! -f $(CONF_DIR)/alias.conf ] && ln -s $(ROOT)/conf.d/alias.conf $(CONF_DIR)/alias.conf || true
 	[ ! -f $(CONF_DIR)/delta.conf ] && ln -s $(ROOT)/conf.d/delta.conf $(CONF_DIR)/delta.conf || true
+	[ ! -f $(CONF_DIR)/difftastic.conf ] && ln -s $(ROOT)/conf.d/difftastic.conf $(CONF_DIR)/difftastic.conf || true
 
 .PHONY: help
 help: ## Display this help screen

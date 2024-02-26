@@ -34,4 +34,5 @@
 [include]
   path = ~/.config/git/conf.d/user.conf
   path = ~/.config/git/conf.d/alias.conf
-  path = ~/.config/git/conf.d/delta.conf
+  # path = ~/.config/git/conf.d/delta.conf
+  path = ~/.config/git/conf.d/difftastic.conf
