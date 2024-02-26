@@ -3,7 +3,6 @@
   preloadindex = true
   fscache = true
   autocrlf = false
-  pager = delta --keep-plus-minus-markers
   editor = vim
 
 [color]
@@ -26,20 +25,11 @@
 [credential]
   helper = manager-core
 
-[diff]
-  tool = vimdiff
-
-[difftool]
-  prompt = false
-
 [merge]
   tool = vimdiff
 
 [mergetool]
   prompt = false
-
-[interactive]
-  diffFilter = delta --color-only
 
 [include]
   path = ~/.config/git/conf.d/user.conf
