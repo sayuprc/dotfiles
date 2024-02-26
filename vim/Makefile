@@ -7,22 +7,21 @@ AUTOLOAD_DIR = $(VIM_CONFIG_ROOT)/autoload
 SRC_DIR = $(VIM_CONFIG_ROOT)/src
 THEME_DIR = $(VIM_CONFIG_ROOT)/themes
 
+CREATE_TARGET_DIRS := $(VIM_CONFIG_ROOT) $(BUNDLES_DIR) $(COLORS_DIR) $(AUTOLOAD_DIR) $(SRC_DIR) $(THEME_DIR)
+
+DEIN_FILES := dein.toml dein_lazy.toml
+
 .DEFAULT_GOAL := help
 
 .PHONY: dir
 dir: ## Creates a directory related to the Fish shell
-	[ ! -d $(VIM_CONFIG_ROOT) ] && mkdir -p $(VIM_CONFIG_ROOT) || true
-	[ ! -d $(BUNDLES_DIR) ] && mkdir -p $(BUNDLES_DIR) || true
-	[ ! -d $(COLORS_DIR) ] && mkdir -p $(COLORS_DIR) || true
-	[ ! -d $(AUTOLOAD_DIR) ] && mkdir -p $(AUTOLOAD_DIR) || true
-	[ ! -d $(SRC_DIR) ] && mkdir -p $(SRC_DIR) || true
-	[ ! -d $(THEME_DIR) ] && mkdir -p $(THEME_DIR) || true
+	@echo 'Create directories'
+	@$(foreach dir,$(CREATE_TARGET_DIRS),$(shell [ ! -d $(dir)] && mkdir -p $(dir) || true))
 
 .PHONY: link
 link: ## Creates a symbolic link for configuration files
 	[ ! -f $(HOME)/.vimrc ] && ln -s $(ROOT)/.vimrc $(HOME)/.vimrc || true
-	[ ! -f $(VIM_CONFIG_ROOT)/dein.toml ] && ln -s $(ROOT)/dein.toml $(VIM_CONFIG_ROOT)/dein.toml || true
-	[ ! -f $(VIM_CONFIG_ROOT)/dein_lazy.toml ] && ln -s $(ROOT)/dein_lazy.toml $(VIM_CONFIG_ROOT)/dein_lazy.toml || true
+	@$(foreach file,$(DEIN_FILES),$(shell [ ! -f $(VIM_CONFIG_ROOT)/$(file)] && ln -s $(ROOT)/$(file) $(VIM_CONFIG_ROOT)/$(file) || true))
 
 .PHONY: help
 help: ## Display this help screen
