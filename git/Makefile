@@ -1,32 +1,37 @@
+DEFAULT_GOAL := help
+
 ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-GIT_CONFIG_ROOT := $(HOME)/.config/git
-CONF_DIR := $(GIT_CONFIG_ROOT)/conf.d
-
-CREATE_TARGET_DIRS := $(GIT_CONFIG_ROOT) $(CONFIG_DIR)
-CONFIG_FILES := user.conf alias.conf delta.conf difftastic.conf
+GIT_ROOT := $(HOME)/.config/git
+GIT_CONF := $(GIT_ROOT)/conf.d
 
 USER_NAME ?= $(USER)
 EMAIL ?= email@example.com
 
 .DEFAULT_GOAL := help
 
+.PHONY: all
+all: ## Automatically perform all steps
+	make -s dir
+	make -s user-conf
+	make -s link
+
 .PHONY: dir
 dir: ## Creates a directory related to the Fish shell
 	@echo 'Create directories'
-	@$(foreach dir,$(CREATE_TARGET_DIRS),$(shell [ ! -d $(dir) ] && mkdir -p $(dir) || true))
+	@[ ! -d $(GIT_ROOT) ] && mkdir -p $(GIT_ROOT) || true
 
 .PHONY: user-conf
 user-conf: ## Create a user.conf
-	[ ! -f $(ROOT)/user.conf ] && cp $(ROOT)/user.conf.example $(ROOT)/user.conf || true
-	sed -i -e 's/##NAME##/$(USER_NAME)/' $(ROOT)/user.conf
-	sed -i -e 's/##EMAIL##/$(EMAIL)/' $(ROOT)/user.conf
+	[ ! -f $(ROOT)/conf.d/user.conf ] && cp $(ROOT)/user.conf.example $(ROOT)/conf.d/user.conf || true
+	sed -i -e 's/##NAME##/$(USER_NAME)/' $(ROOT)/conf.d/user.conf
+	sed -i -e 's/##EMAIL##/$(EMAIL)/' $(ROOT)/conf.d/user.conf
 
 .PHONY: link
 link: ## Creates a symbolic link for configuration files
 	[ ! -f $(HOME)/.gitconfig ] && ln -s $(ROOT)/.gitconfig $(HOME)/.gitconfig || true
-	[ ! -f $(GIT_CONFIG_ROOT)/.gitmessage ] && ln -s $(ROOT)/.gitmessage $(GIT_CONFIG_ROOT)/.gitmessage || true
-	@$(foreach file,$(CONFIG_FILES),$(shell [ ! -f $(CONF_DIR)/$(file) ] && ln -s $(ROOT)/$(file) $(CONF_DIR)/$file || true))
+	[ ! -f $(GIT_ROOT)/.gitmessage ] && ln -s $(ROOT)/.gitmessage $(GIT_ROOT)/.gitmessage || true
+	[ ! -f $(GIT_CONF) ] && ln -s $(ROOT)/conf.d $(GIT_CONF)
 
 .PHONY: help
 help: ## Display this help screen
