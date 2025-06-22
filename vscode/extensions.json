@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "cocopon.iceberg-theme",
+    "vscodevim.vim",
+    "EditorConfig.EditorConfig",
+    "christian-kohler.path-intellisense"
+  ]
+}

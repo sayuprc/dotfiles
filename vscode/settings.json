@@ -1,0 +1,21 @@
+{
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "extensions.ignoreRecommendations": true,
+  "terminal.integrated.copyOnSelection": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.useSystemClipboard": true,
+  "workbench.colorTheme": "Iceberg"
+}
