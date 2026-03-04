@@ -7,6 +7,7 @@
 - vim
 - starship
 - vscode
+- agent (AI Agent: GitHub Copilot CLI, Claude Code CLI)
 
 ## セットアップ
 
@@ -41,6 +42,7 @@ mise run git
 mise run fish
 mise run starship
 mise run vim
+mise run agent
 ```
 
 #### 各ディレクトリから実行
@@ -79,6 +81,14 @@ mise run link     # シンボリックリンク作成
 **Vim**
 ```bash
 cd vim
+mise run all   # すべてのタスクを実行
+mise run dir   # ディレクトリ作成
+mise run link  # シンボリックリンク作成
+```
+
+**Agent (AI Agent)**
+```bash
+cd agent
 mise run all   # すべてのタスクを実行
 mise run dir   # ディレクトリ作成
 mise run link  # シンボリックリンク作成
