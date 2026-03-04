@@ -21,6 +21,10 @@ run = "cd starship && mise run all"
 description = "Vim をセットアップ"
 run = "cd vim && mise run all"
 
+[tasks.agent]
+description = "AI Agent をセットアップ"
+run = "cd agent && mise run all"
+
 [tasks.all]
 description = "すべてのセットアップタスクを実行"
-depends = ["fish", "git", "starship", "vim"]
+depends = ["fish", "git", "starship", "vim", "agent"]

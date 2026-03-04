@@ -1,0 +1,23 @@
+# AI Agent セットアップタスク
+
+[tasks.dir]
+description = "AI Agent 関連のディレクトリを作成"
+run = """
+echo 'Create directories'
+mkdir -p "$HOME/.copilot"
+mkdir -p "$HOME/.claude"
+"""
+
+[tasks.link]
+description = "AI Agent 設定ファイルのシンボリックリンクを作成"
+depends = ["dir"]
+run = """
+echo 'Create symbolic links'
+ROOT="$PWD"
+[ ! -f "$HOME/.copilot/copilot-instructions.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.copilot/copilot-instructions.md" || true
+[ ! -f "$HOME/.claude/CLAUDE.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.claude/CLAUDE.md" || true
+"""
+
+[tasks.all]
+description = "すべての AI Agent セットアップタスクを実行"
+depends = ["dir", "link"]
