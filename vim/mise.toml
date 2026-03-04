@@ -1,7 +1,7 @@
-# Vim setup tasks
+# Vim セットアップタスク
 
 [tasks.dir]
-description = "Creates directories related to Vim"
+description = "Vim 関連のディレクトリを作成"
 run = """
 echo 'Create directories'
 VIM_CONFIG_ROOT="$HOME/.config/vim"
@@ -14,7 +14,7 @@ mkdir -p "$VIM_CONFIG_ROOT/themes"
 """
 
 [tasks.link]
-description = "Creates symbolic links for Vim configuration files"
+description = "Vim 設定ファイルのシンボリックリンクを作成"
 depends = ["dir"]
 run = """
 ROOT="$PWD"
@@ -25,5 +25,5 @@ VIM_CONFIG_ROOT="$HOME/.config/vim"
 """
 
 [tasks.all]
-description = "Run all Vim setup tasks"
+description = "すべての Vim セットアップタスクを実行"
 depends = ["dir", "link"]

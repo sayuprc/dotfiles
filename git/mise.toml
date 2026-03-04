@@ -1,14 +1,14 @@
-# Git setup tasks
+# Git セットアップタスク
 
 [tasks.dir]
-description = "Creates directories related to Git"
+description = "Git 関連のディレクトリを作成"
 run = """
 echo 'Create directories'
 mkdir -p "$HOME/.config/git"
 """
 
 [tasks.user-conf]
-description = "Create user.conf from template"
+description = "テンプレートから user.conf を作成"
 env = { USER_NAME = "${USER_NAME:-$USER}", EMAIL = "${EMAIL:-email@example.com}" }
 run = """
 ROOT="$PWD"
@@ -18,7 +18,7 @@ sed -i -e "s/##EMAIL##/$EMAIL/" "$ROOT/conf.d/user.conf"
 """
 
 [tasks.link]
-description = "Creates symbolic links for Git configuration files"
+description = "Git 設定ファイルのシンボリックリンクを作成"
 depends = ["dir"]
 run = """
 ROOT="$PWD"
@@ -29,5 +29,5 @@ GIT_ROOT="$HOME/.config/git"
 """
 
 [tasks.all]
-description = "Automatically perform all Git setup steps"
+description = "すべての Git セットアップ手順を自動実行"
 depends = ["dir", "user-conf", "link"]

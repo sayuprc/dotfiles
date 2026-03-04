@@ -1,13 +1,13 @@
-# Starship setup tasks
+# Starship セットアップタスク
 
 [tasks.install]
-description = "Install Starship"
+description = "Starship をインストール"
 run = """
 curl -Ss https://starship.rs/install.sh | sh -s -- -y
 """
 
 [tasks.link]
-description = "Creates symbolic links for Starship configuration files"
+description = "Starship 設定ファイルのシンボリックリンクを作成"
 run = """
 ROOT="$PWD"
 CONFIG_ROOT="$HOME/.config"
@@ -19,5 +19,5 @@ mkdir -p "$FISH_CONFIG_DIR"
 """
 
 [tasks.all]
-description = "Run all Starship setup tasks"
+description = "すべての Starship セットアップタスクを実行"
 depends = ["install", "link"]

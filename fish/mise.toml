@@ -1,7 +1,7 @@
-# Fish shell setup tasks
+# Fish shell セットアップタスク
 
 [tasks.dir]
-description = "Creates directories related to the Fish shell"
+description = "Fish shell 関連のディレクトリを作成"
 run = """
 echo 'Create directories'
 mkdir -p "$HOME/.config/fish"
@@ -10,7 +10,7 @@ mkdir -p "$HOME/.config/fish/functions"
 """
 
 [tasks.link]
-description = "Creates symbolic links for Fish configuration files"
+description = "Fish 設定ファイルのシンボリックリンクを作成"
 depends = ["dir"]
 run = """
 echo 'Create symbolic link'
@@ -20,7 +20,7 @@ CONFIG_DIR="$HOME/.config/fish/conf.d"
 """
 
 [tasks.install-fisher]
-description = "Installs fisher"
+description = "fisher をインストール"
 depends = ["dir"]
 run = """
 FUNCTION_DIR="$HOME/.config/fish/functions"
@@ -28,5 +28,5 @@ FUNCTION_DIR="$HOME/.config/fish/functions"
 """
 
 [tasks.all]
-description = "Run all Fish setup tasks"
+description = "すべての Fish セットアップタスクを実行"
 depends = ["dir", "link", "install-fisher"]
