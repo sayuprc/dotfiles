@@ -1,0 +1,23 @@
+# Starship セットアップタスク
+
+[tasks.install]
+description = "Starship をインストール"
+run = """
+curl -Ss https://starship.rs/install.sh | sh -s -- -y
+"""
+
+[tasks.link]
+description = "Starship 設定ファイルのシンボリックリンクを作成"
+run = """
+ROOT="$PWD"
+CONFIG_ROOT="$HOME/.config"
+FISH_CONFIG_DIR="$HOME/.config/fish/conf.d"
+mkdir -p "$CONFIG_ROOT"
+mkdir -p "$FISH_CONFIG_DIR"
+[ ! -f "$CONFIG_ROOT/starship.toml" ] && ln -s "$ROOT/starship.toml" "$CONFIG_ROOT/starship.toml" || true
+[ ! -f "$FISH_CONFIG_DIR/starship.fish" ] && ln -s "$ROOT/starship.fish" "$FISH_CONFIG_DIR/starship.fish" || true
+"""
+
+[tasks.all]
+description = "すべての Starship セットアップタスクを実行"
+depends = ["install", "link"]

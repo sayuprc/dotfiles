@@ -1,0 +1,33 @@
+# Git セットアップタスク
+
+[tasks.dir]
+description = "Git 関連のディレクトリを作成"
+run = """
+echo 'Create directories'
+mkdir -p "$HOME/.config/git"
+"""
+
+[tasks.user-conf]
+description = "テンプレートから user.conf を作成"
+env = { USER_NAME = "${USER_NAME:-$USER}", EMAIL = "${EMAIL:-email@example.com}" }
+run = """
+ROOT="$PWD"
+[ ! -f "$ROOT/conf.d/user.conf" ] && cp "$ROOT/user.conf.example" "$ROOT/conf.d/user.conf" || true
+sed -i -e "s/##NAME##/$USER_NAME/" "$ROOT/conf.d/user.conf"
+sed -i -e "s/##EMAIL##/$EMAIL/" "$ROOT/conf.d/user.conf"
+"""
+
+[tasks.link]
+description = "Git 設定ファイルのシンボリックリンクを作成"
+depends = ["dir"]
+run = """
+ROOT="$PWD"
+GIT_ROOT="$HOME/.config/git"
+[ ! -f "$HOME/.gitconfig" ] && ln -s "$ROOT/.gitconfig" "$HOME/.gitconfig" || true
+[ ! -f "$GIT_ROOT/.gitmessage" ] && ln -s "$ROOT/.gitmessage" "$GIT_ROOT/.gitmessage" || true
+[ ! -e "$GIT_ROOT/conf.d" ] && ln -s "$ROOT/conf.d" "$GIT_ROOT/conf.d" || true
+"""
+
+[tasks.all]
+description = "すべての Git セットアップ手順を自動実行"
+depends = ["dir", "user-conf", "link"]

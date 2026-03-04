@@ -1,0 +1,26 @@
+# mise タスクランナー設定
+# タスクは各サブディレクトリに配置されています
+
+[tasks.help]
+description = "利用可能なタスクを表示"
+run = "mise tasks"
+
+[tasks.git]
+description = "Git をセットアップ"
+run = "cd git && mise run all"
+
+[tasks.fish]
+description = "Fish をセットアップ"
+run = "cd fish && mise run all"
+
+[tasks.starship]
+description = "Starship をセットアップ"
+run = "cd starship && mise run all"
+
+[tasks.vim]
+description = "Vim をセットアップ"
+run = "cd vim && mise run all"
+
+[tasks.all]
+description = "すべてのセットアップタスクを実行"
+depends = ["fish", "git", "starship", "vim"]
