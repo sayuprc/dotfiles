@@ -1,0 +1,33 @@
+# Git setup tasks
+
+[tasks.dir]
+description = "Creates directories related to Git"
+run = """
+echo 'Create directories'
+mkdir -p "$HOME/.config/git"
+"""
+
+[tasks.user-conf]
+description = "Create user.conf from template"
+env = { USER_NAME = "${USER_NAME:-$USER}", EMAIL = "${EMAIL:-email@example.com}" }
+run = """
+ROOT="$PWD"
+[ ! -f "$ROOT/conf.d/user.conf" ] && cp "$ROOT/user.conf.example" "$ROOT/conf.d/user.conf" || true
+sed -i -e "s/##NAME##/$USER_NAME/" "$ROOT/conf.d/user.conf"
+sed -i -e "s/##EMAIL##/$EMAIL/" "$ROOT/conf.d/user.conf"
+"""
+
+[tasks.link]
+description = "Creates symbolic links for Git configuration files"
+depends = ["dir"]
+run = """
+ROOT="$PWD"
+GIT_ROOT="$HOME/.config/git"
+[ ! -f "$HOME/.gitconfig" ] && ln -s "$ROOT/.gitconfig" "$HOME/.gitconfig" || true
+[ ! -f "$GIT_ROOT/.gitmessage" ] && ln -s "$ROOT/.gitmessage" "$GIT_ROOT/.gitmessage" || true
+[ ! -e "$GIT_ROOT/conf.d" ] && ln -s "$ROOT/conf.d" "$GIT_ROOT/conf.d" || true
+"""
+
+[tasks.all]
+description = "Automatically perform all Git setup steps"
+depends = ["dir", "user-conf", "link"]

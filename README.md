@@ -26,35 +26,60 @@ curl https://mise.run | sh
 mise tasks
 ```
 
-### 個別セットアップ
+### セットアップ方法
 
-#### Git
+各ツールのセットアップタスクは、各ディレクトリの `mise.toml` で管理されています。
+
+#### ルートディレクトリから実行
 
 ```bash
+# すべてのツールをセットアップ
+mise run all
+
+# 個別にセットアップ
+mise run git
+mise run fish
+mise run starship
+mise run vim
+```
+
+#### 各ディレクトリから実行
+
+各ディレクトリに移動して、個別のタスクを実行することもできます。
+
+**Git**
+```bash
+cd git
 # 環境変数を設定してユーザー情報を設定
-USER_NAME="Your Name" EMAIL="your@email.com" mise run git:all
+USER_NAME="Your Name" EMAIL="your@email.com" mise run all
+
+# または個別タスク
+mise run dir        # ディレクトリ作成
+mise run user-conf  # ユーザー設定ファイル作成
+mise run link       # シンボリックリンク作成
 ```
 
-または
-
+**Fish**
 ```bash
-mise run git:all
+cd fish
+mise run all             # すべてのタスクを実行
+mise run dir             # ディレクトリ作成
+mise run link            # シンボリックリンク作成
+mise run install-fisher  # fisher をインストール
 ```
 
-#### Fish
-
+**Starship**
 ```bash
-mise run fish:all
+cd starship
+mise run all      # すべてのタスクを実行
+mise run install  # Starship をインストール
+mise run link     # シンボリックリンク作成
 ```
 
-#### Starship
-
+**Vim**
 ```bash
-mise run starship:all
-```
-
-#### Vim
-
-```bash
-mise run vim:all
+cd vim
+mise run all   # すべてのタスクを実行
+mise run dir   # ディレクトリ作成
+mise run link  # シンボリックリンク作成
 ```

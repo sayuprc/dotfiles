@@ -1,0 +1,32 @@
+# Fish shell setup tasks
+
+[tasks.dir]
+description = "Creates directories related to the Fish shell"
+run = """
+echo 'Create directories'
+mkdir -p "$HOME/.config/fish"
+mkdir -p "$HOME/.config/fish/conf.d"
+mkdir -p "$HOME/.config/fish/functions"
+"""
+
+[tasks.link]
+description = "Creates symbolic links for Fish configuration files"
+depends = ["dir"]
+run = """
+echo 'Create symbolic link'
+ROOT="$PWD"
+CONFIG_DIR="$HOME/.config/fish/conf.d"
+[ ! -f "$CONFIG_DIR/alias.fish" ] && ln -s "$ROOT/alias.fish" "$CONFIG_DIR/alias.fish" || true
+"""
+
+[tasks.install-fisher]
+description = "Installs fisher"
+depends = ["dir"]
+run = """
+FUNCTION_DIR="$HOME/.config/fish/functions"
+[ ! -f "$FUNCTION_DIR/fisher.fish" ] && curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish -o "$FUNCTION_DIR/fisher.fish" || true
+"""
+
+[tasks.all]
+description = "Run all Fish setup tasks"
+depends = ["dir", "link", "install-fisher"]

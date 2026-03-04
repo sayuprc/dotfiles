@@ -1,128 +1,26 @@
 # mise task runner configuration
-# Migrated from Makefile-based scripts
-
-# Root level tasks
-[tasks.git]
-description = "Setup git"
-run = "mise run git:all"
+# Tasks are distributed in subdirectories
 
 [tasks.help]
 description = "Display available tasks"
 run = "mise tasks"
 
-# Fish shell tasks
-[tasks."fish:dir"]
-description = "Creates directories related to the Fish shell"
-run = """
-echo 'Create directories'
-mkdir -p "$HOME/.config/fish"
-mkdir -p "$HOME/.config/fish/conf.d"
-mkdir -p "$HOME/.config/fish/functions"
-"""
+[tasks.git]
+description = "Setup git"
+run = "cd git && mise run all"
 
-[tasks."fish:link"]
-description = "Creates symbolic links for Fish configuration files"
-depends = ["fish:dir"]
-run = """
-echo 'Create symbolic link'
-ROOT="$PWD/fish"
-CONFIG_DIR="$HOME/.config/fish/conf.d"
-[ ! -f "$CONFIG_DIR/alias.fish" ] && ln -s "$ROOT/alias.fish" "$CONFIG_DIR/alias.fish" || true
-"""
+[tasks.fish]
+description = "Setup fish"
+run = "cd fish && mise run all"
 
-[tasks."fish:install-fisher"]
-description = "Installs fisher"
-depends = ["fish:dir"]
-run = """
-FUNCTION_DIR="$HOME/.config/fish/functions"
-[ ! -f "$FUNCTION_DIR/fisher.fish" ] && curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish -o "$FUNCTION_DIR/fisher.fish" || true
-"""
+[tasks.starship]
+description = "Setup starship"
+run = "cd starship && mise run all"
 
-[tasks."fish:all"]
-description = "Run all Fish setup tasks"
-depends = ["fish:dir", "fish:link", "fish:install-fisher"]
+[tasks.vim]
+description = "Setup vim"
+run = "cd vim && mise run all"
 
-# Git tasks
-[tasks."git:dir"]
-description = "Creates directories related to Git"
-run = """
-echo 'Create directories'
-mkdir -p "$HOME/.config/git"
-"""
-
-[tasks."git:user-conf"]
-description = "Create user.conf from template"
-env = { USER_NAME = "${USER_NAME:-$USER}", EMAIL = "${EMAIL:-email@example.com}" }
-run = """
-ROOT="$PWD/git"
-[ ! -f "$ROOT/conf.d/user.conf" ] && cp "$ROOT/user.conf.example" "$ROOT/conf.d/user.conf" || true
-sed -i -e "s/##NAME##/$USER_NAME/" "$ROOT/conf.d/user.conf"
-sed -i -e "s/##EMAIL##/$EMAIL/" "$ROOT/conf.d/user.conf"
-"""
-
-[tasks."git:link"]
-description = "Creates symbolic links for Git configuration files"
-depends = ["git:dir"]
-run = """
-ROOT="$PWD/git"
-GIT_ROOT="$HOME/.config/git"
-[ ! -f "$HOME/.gitconfig" ] && ln -s "$ROOT/.gitconfig" "$HOME/.gitconfig" || true
-[ ! -f "$GIT_ROOT/.gitmessage" ] && ln -s "$ROOT/.gitmessage" "$GIT_ROOT/.gitmessage" || true
-[ ! -e "$GIT_ROOT/conf.d" ] && ln -s "$ROOT/conf.d" "$GIT_ROOT/conf.d" || true
-"""
-
-[tasks."git:all"]
-description = "Automatically perform all Git setup steps"
-depends = ["git:dir", "git:user-conf", "git:link"]
-
-# Starship tasks
-[tasks."starship:install"]
-description = "Install Starship"
-run = """
-curl -Ss https://starship.rs/install.sh | sh -s -- -y
-"""
-
-[tasks."starship:link"]
-description = "Creates symbolic links for Starship configuration files"
-run = """
-ROOT="$PWD/starship"
-CONFIG_ROOT="$HOME/.config"
-FISH_CONFIG_DIR="$HOME/.config/fish/conf.d"
-mkdir -p "$CONFIG_ROOT"
-mkdir -p "$FISH_CONFIG_DIR"
-[ ! -f "$CONFIG_ROOT/starship.toml" ] && ln -s "$ROOT/starship.toml" "$CONFIG_ROOT/starship.toml" || true
-[ ! -f "$FISH_CONFIG_DIR/starship.fish" ] && ln -s "$ROOT/starship.fish" "$FISH_CONFIG_DIR/starship.fish" || true
-"""
-
-[tasks."starship:all"]
-description = "Run all Starship setup tasks"
-depends = ["starship:install", "starship:link"]
-
-# Vim tasks
-[tasks."vim:dir"]
-description = "Creates directories related to Vim"
-run = """
-echo 'Create directories'
-VIM_CONFIG_ROOT="$HOME/.config/vim"
-mkdir -p "$VIM_CONFIG_ROOT"
-mkdir -p "$VIM_CONFIG_ROOT/bundles"
-mkdir -p "$VIM_CONFIG_ROOT/colors"
-mkdir -p "$VIM_CONFIG_ROOT/autoload"
-mkdir -p "$VIM_CONFIG_ROOT/src"
-mkdir -p "$VIM_CONFIG_ROOT/themes"
-"""
-
-[tasks."vim:link"]
-description = "Creates symbolic links for Vim configuration files"
-depends = ["vim:dir"]
-run = """
-ROOT="$PWD/vim"
-VIM_CONFIG_ROOT="$HOME/.config/vim"
-[ ! -f "$HOME/.vimrc" ] && ln -s "$ROOT/.vimrc" "$HOME/.vimrc" || true
-[ ! -f "$VIM_CONFIG_ROOT/dein.toml" ] && ln -s "$ROOT/dein.toml" "$VIM_CONFIG_ROOT/dein.toml" || true
-[ ! -f "$VIM_CONFIG_ROOT/dein_lazy.toml" ] && ln -s "$ROOT/dein_lazy.toml" "$VIM_CONFIG_ROOT/dein_lazy.toml" || true
-"""
-
-[tasks."vim:all"]
-description = "Run all Vim setup tasks"
-depends = ["vim:dir", "vim:link"]
+[tasks.all]
+description = "Run all setup tasks"
+depends = ["fish", "git", "starship", "vim"]

@@ -1,0 +1,29 @@
+# Vim setup tasks
+
+[tasks.dir]
+description = "Creates directories related to Vim"
+run = """
+echo 'Create directories'
+VIM_CONFIG_ROOT="$HOME/.config/vim"
+mkdir -p "$VIM_CONFIG_ROOT"
+mkdir -p "$VIM_CONFIG_ROOT/bundles"
+mkdir -p "$VIM_CONFIG_ROOT/colors"
+mkdir -p "$VIM_CONFIG_ROOT/autoload"
+mkdir -p "$VIM_CONFIG_ROOT/src"
+mkdir -p "$VIM_CONFIG_ROOT/themes"
+"""
+
+[tasks.link]
+description = "Creates symbolic links for Vim configuration files"
+depends = ["dir"]
+run = """
+ROOT="$PWD"
+VIM_CONFIG_ROOT="$HOME/.config/vim"
+[ ! -f "$HOME/.vimrc" ] && ln -s "$ROOT/.vimrc" "$HOME/.vimrc" || true
+[ ! -f "$VIM_CONFIG_ROOT/dein.toml" ] && ln -s "$ROOT/dein.toml" "$VIM_CONFIG_ROOT/dein.toml" || true
+[ ! -f "$VIM_CONFIG_ROOT/dein_lazy.toml" ] && ln -s "$ROOT/dein_lazy.toml" "$VIM_CONFIG_ROOT/dein_lazy.toml" || true
+"""
+
+[tasks.all]
+description = "Run all Vim setup tasks"
+depends = ["dir", "link"]
