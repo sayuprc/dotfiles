@@ -1,3 +1,7 @@
+# NOTE: This Makefile has been migrated to mise.toml
+# Please use `mise run <task>` instead of `make <task>`
+# See README.md for more information about using mise
+
 DEFAULT_GOAL .= help
 
 .PHONY: git

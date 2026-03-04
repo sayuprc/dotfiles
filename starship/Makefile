@@ -1,3 +1,7 @@
+# NOTE: This Makefile has been migrated to mise.toml
+# Please use `mise run starship:<task>` instead of `make <task>`
+# See README.md for more information about using mise
+
 ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 CONFIG_ROOT := $(HOME)/.config
 FISH_CONFIG_DIR := $(HOME)/.config/fish/conf.d

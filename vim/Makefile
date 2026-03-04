@@ -1,3 +1,7 @@
+# NOTE: This Makefile has been migrated to mise.toml
+# Please use `mise run vim:<task>` instead of `make <task>`
+# See README.md for more information about using mise
+
 ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 VIM_CONFIG_ROOT = $(HOME)/.config/vim
