@@ -1,0 +1,21 @@
+# mise セットアップタスク
+
+[tasks.dir]
+description = "mise 関連のディレクトリを作成"
+run = """
+echo 'Create directories'
+mkdir -p "$HOME/.config/mise"
+"""
+
+[tasks.link]
+description = "mise 設定ファイルのシンボリックリンクを作成"
+depends = ["dir"]
+run = """
+echo 'Create symbolic links'
+ROOT="$PWD"
+[ ! -f "$HOME/.config/mise/config.toml" ] && ln -s "$ROOT/config.toml" "$HOME/.config/mise/config.toml" || true
+"""
+
+[tasks.all]
+description = "すべての mise セットアップタスクを実行"
+depends = ["dir", "link"]

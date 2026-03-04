@@ -1,0 +1,8 @@
+[tools]
+claude = "latest"
+fd = "latest"
+node = "24"
+npm = "latest"
+"npm:@github/copilot" = "latest"
+ripgrep = "latest"
+usage = "latest"
