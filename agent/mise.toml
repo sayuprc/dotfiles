@@ -6,6 +6,7 @@ run = """
 echo 'Create directories'
 mkdir -p "$HOME/.copilot"
 mkdir -p "$HOME/.claude"
+mkdir -p "$HOME/.codex"
 """
 
 [tasks.link]
@@ -16,6 +17,7 @@ echo 'Create symbolic links'
 ROOT="$PWD"
 [ ! -f "$HOME/.copilot/copilot-instructions.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.copilot/copilot-instructions.md" || true
 [ ! -f "$HOME/.claude/CLAUDE.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.claude/CLAUDE.md" || true
+[ ! -f "$HOME/.codex/AGENTS.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.codex/AGENTS.md" || true
 """
 
 [tasks.all]
