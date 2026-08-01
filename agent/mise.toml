@@ -20,6 +20,7 @@ ROOT="$PWD"
 [ ! -f "$HOME/.claude/CLAUDE.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.claude/CLAUDE.md" || true
 [ ! -f "$HOME/.codex/AGENTS.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.codex/AGENTS.md" || true
 [ ! -f "$HOME/.cursor/AGENTS.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.cursor/AGENTS.md" || true
+[ ! -f "$HOME/apm.yml" ] && ln -s "$ROOT/apm.yml" "$HOME/apm.yml" || true
 """
 
 [tasks.all]
