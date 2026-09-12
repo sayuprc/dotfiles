@@ -1,9 +1,6 @@
 [tools]
-claude = "2.1.122"
-fd = "10.4.2"
 node = "24"
-pinact = "3.9.0"
-pnpm = "10.33.0"
+pinact = "4.1.1"
+pnpm = "12.4.1"
 python = "3.14.4"
-ripgrep = "15.1.0"
-usage = "3.2.1"
+usage = "latest"
