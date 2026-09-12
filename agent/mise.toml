@@ -4,8 +4,6 @@
 description = "AI Agent 関連のディレクトリを作成"
 run = """
 echo 'Create directories'
-# mkdir -p "$HOME/.copilot"
-mkdir -p "$HOME/.claude"
 mkdir -p "$HOME/.codex"
 mkdir -p "$HOME/.cursor"
 """
@@ -16,8 +14,6 @@ depends = ["dir"]
 run = """
 echo 'Create symbolic links'
 ROOT="$PWD"
-# [ ! -f "$HOME/.copilot/copilot-instructions.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.copilot/copilot-instructions.md" || true
-[ ! -f "$HOME/.claude/CLAUDE.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.claude/CLAUDE.md" || true
 [ ! -f "$HOME/.codex/AGENTS.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.codex/AGENTS.md" || true
 [ ! -f "$HOME/.cursor/AGENTS.md" ] && ln -s "$ROOT/instructions.md" "$HOME/.cursor/AGENTS.md" || true
 [ ! -f "$HOME/apm.yml" ] && ln -s "$ROOT/apm.yml" "$HOME/apm.yml" || true
