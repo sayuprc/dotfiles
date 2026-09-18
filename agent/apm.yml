@@ -12,6 +12,7 @@ targets:
 dependencies:
   apm:
     - mattpocock/skills
+    - typesafe-ai/skills
   mcp: []
 includes: auto
 scripts: {}
