@@ -13,6 +13,7 @@ dependencies:
   apm:
     - mattpocock/skills
     - typesafe-ai/skills
+    - ayghri/i-have-adhd
   mcp: []
 includes: auto
 scripts: {}
