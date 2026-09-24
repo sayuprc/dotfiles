@@ -1,6 +1,8 @@
 [tools]
+claude = "latest"
 node = "24"
 pinact = "4.1.1"
 pnpm = "12.4.1"
 python = "3.14.4"
+ripgrep = "latest"
 usage = "latest"
