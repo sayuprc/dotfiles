@@ -14,6 +14,8 @@ dependencies:
     - mattpocock/skills
     - typesafe-ai/skills
     - ayghri/i-have-adhd
+    - cloudflare/security-audit-skill
+    - DietrichGebert/ponytail
   mcp: []
 includes: auto
 scripts: {}
