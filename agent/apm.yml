@@ -8,7 +8,7 @@ author: sayuprc
 targets:
   - claude
   - codex
-  - cursor
+    # - cursor
 dependencies:
   apm:
     - mattpocock/skills
@@ -16,6 +16,7 @@ dependencies:
     - ayghri/i-have-adhd
     - cloudflare/security-audit-skill
     - DietrichGebert/ponytail
+    - sayuprc/rain-journal
   mcp: []
 includes: auto
 scripts: {}
