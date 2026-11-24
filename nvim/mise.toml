@@ -1,0 +1,13 @@
+# Neovim (AstroNvim) セットアップタスク
+
+[tasks.link]
+description = "Neovim 設定ディレクトリのシンボリックリンクを作成"
+run = """
+ROOT="$PWD"
+mkdir -p "$HOME/.config"
+[ ! -e "$HOME/.config/nvim" ] && ln -s "$ROOT" "$HOME/.config/nvim" || true
+"""
+
+[tasks.all]
+description = "すべての Neovim セットアップタスクを実行"
+depends = ["link"]

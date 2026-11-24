@@ -17,6 +17,7 @@ echo 'Create symbolic link'
 ROOT="$PWD"
 CONFIG_DIR="$HOME/.config/fish/conf.d"
 [ ! -f "$CONFIG_DIR/alias.fish" ] && ln -s "$ROOT/alias.fish" "$CONFIG_DIR/alias.fish" || true
+[ ! -f "$CONFIG_DIR/fzf.fish" ] && ln -s "$ROOT/fzf.fish" "$CONFIG_DIR/fzf.fish" || true
 """
 
 [tasks.install-fisher]

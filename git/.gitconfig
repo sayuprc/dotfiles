@@ -3,7 +3,7 @@
   preloadindex = true
   fscache = true
   autocrlf = false
-  editor = vim
+  editor = nvim
 
 [color]
   diff = auto

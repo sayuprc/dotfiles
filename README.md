@@ -6,8 +6,9 @@
 - fish
 - git
 - mise
+- nvim (Neovim: AstroNvim)
 - starship
-- vim
+- vim (プラグインなしの最小限の設定)
 - vscode
 
 ## セットアップ
