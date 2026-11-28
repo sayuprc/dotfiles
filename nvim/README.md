@@ -31,6 +31,22 @@ mise run all
 - `~/.config/nvim` にこのディレクトリへのシンボリックリンクを張る
 - 初回起動時に lazy.nvim とプラグインが自動でインストールされる
 
+### intelephense のライセンス
+
+ライセンスキーがなくても無料の機能は使える
+
+有料の機能 (名前の変更や実装への移動など) を使うときは、ライセンスキーだけを書いたファイルを `~/.config/intelephense/global/licence.txt` に置く
+
+`XDG_CONFIG_HOME` を設定しているときは `$XDG_CONFIG_HOME/intelephense/global/licence.txt` になる
+
+```bash
+mkdir -p ~/.config/intelephense/global
+echo 'ライセンスキー' > ~/.config/intelephense/global/licence.txt
+```
+
+- キーは秘密情報なので、このリポジトリには置かない
+- 置いたあとに Neovim を開き直すと読み込まれる
+
 ## 設定の変え方
 
 - `lua/plugins/` に `.lua` ファイルを置くと読み込まれる
@@ -48,6 +64,7 @@ mise run all
 | `lua/plugins/docker.lua` | Dockerfile、Compose、Bake ファイルの LSP に docker-language-server (VS Code の Docker DX と同じもの) を使う |
 | `lua/plugins/icons.lua` | ファイルのアイコンを Material 風 (nvim-material-icon) にする |
 | `lua/plugins/markdown.lua` | WSL で Markdown のプレビューを Windows の既定ブラウザで開く |
+| `lua/plugins/neo-tree.lua` | ファイルツリーで隠しファイル・隠しフォルダを最初から表示する |
 | `lua/plugins/php.lua` | PHP の LSP に intelephense を使う。treesitter の php / phpdoc パーサーも入れる |
 | `lua/plugins/terraform.lua` | Terraform の LSP に terraform-ls を使う |
 | `lua/plugins/toggleterm.lua` | ターミナルを高さ 20 行で開く。`F8` で新しいターミナルを足す。ターミナルの中の `Ctrl-l` をシェルに渡す (画面のクリアに使う) |
