@@ -2,12 +2,15 @@
 claude = "latest"
 fd = "latest"
 fzf = "latest"
+# Neovim の clipboard provider が WSL から Windows のクリップボードを使うため
+# Windows 用のバイナリしか配布されておらず、実行権限も付かないので asset と postinstall を明示する
+"github:equalsraf/win32yank" = { version = "latest", asset_pattern = "win32yank-x64.zip", postinstall = "chmod +x $MISE_TOOL_INSTALL_PATH/win32yank.exe" }
 "github:lambdalisue/cclens" = "latest"
 lazygit = "0.66.3"
 neovim = "0.12.6"
 node = "26"
 pinact = "5.0.2"
-pnpm = "12.21.0"
+pnpm = "12.23.0"
 python = "3.15.2"
 ripgrep = "latest"
 tree-sitter = "0.27.2"
