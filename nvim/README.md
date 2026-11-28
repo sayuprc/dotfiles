@@ -41,13 +41,13 @@ mise run all
 
 | ファイル | 内容 |
 | --- | --- |
-| `lua/community.lua` | AstroCommunity の TOML (taplo) と YAML (yaml-language-server、SchemaStore) のパック、Markdown の整形表示 (render-markdown.nvim) を読み込む |
+| `lua/community.lua` | AstroCommunity の TOML (taplo) と YAML (yaml-language-server、SchemaStore) のパック、Markdown のブラウザプレビュー (markdown-preview.nvim) を読み込む |
 | `init.lua` | 使わない gdu / btm の有無を確かめないようにする (WSL では見つからないコマンドの検索が遅く、起動が重くなるため) |
 | `lua/plugins/clipboard.lua` | 右クリックをクリップボードからの貼り付けにする |
 | `lua/plugins/colorscheme.lua` | 配色を catppuccin にする |
 | `lua/plugins/docker.lua` | Dockerfile、Compose、Bake ファイルの LSP に docker-language-server (VS Code の Docker DX と同じもの) を使う |
 | `lua/plugins/icons.lua` | ファイルのアイコンを Material 風 (nvim-material-icon) にする |
-| `lua/plugins/markdown.lua` | `Space u m` で Markdown の整形表示を切り替える |
+| `lua/plugins/markdown.lua` | WSL で Markdown のプレビューを Windows の既定ブラウザで開く |
 | `lua/plugins/php.lua` | PHP の LSP に intelephense を使う。treesitter の php / phpdoc パーサーも入れる |
 | `lua/plugins/terraform.lua` | Terraform の LSP に terraform-ls を使う |
 | `lua/plugins/toggleterm.lua` | ターミナルを高さ 20 行で開く。`F8` で新しいターミナルを足す。ターミナルの中の `Ctrl-l` をシェルに渡す (画面のクリアに使う) |
